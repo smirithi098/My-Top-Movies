@@ -1,0 +1,37 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}My Top 10 Movies{% endblock %}
+
+{% block content %}
+<div class="container-fluid heading">
+    <h3 class="display-4">{{ movie.title }} ({{ movie.year }})</h3>
+    <hr class="my-4 line-break">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card text-center movie-card">
+                <div class="card-body movie-card-body">
+                    <img class="card-img-top poster movie-poster" src="{{ movie.img_url }}" alt="Card image">
+                    <p class="display-5 rating">
+                        <i class="fas fa-star star"></i> {{ movie.rating }}
+                    </p>
+                    <p class="display-5 review">{{ movie.review }}</p>
+                    <p class="display-5 description">{{ movie.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-dark btn-lg" href="{{ url_for('update', id=movie.id) }}">Update</a>
+                    <a class="btn btn-danger btn-lg" href="{{ url_for('delete', id=movie.id) }}">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

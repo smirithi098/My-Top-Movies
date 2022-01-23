@@ -27,16 +27,30 @@ body {
     margin: auto;
 }
 
-.card-body {
+.movie-card {
+    width: 500px;
+    height: auto;
+}
+
+.card-display {
     padding: 0px;
     display:flex;
     justify-content: flex-start;
     align-items: center;
 }
 
+.movie-card-body {
+    padding: 0px 0px 20px 0px;
+}
+
 .poster {
     width: 400px;
-    height: 350px;
+    height: 400px;
+}
+
+.movie-poster {
+    width: -webkit-fill-available;
+    margin-bottom: 20px;
 }
 
 .movie-title {

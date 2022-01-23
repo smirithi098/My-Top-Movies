@@ -39,6 +39,13 @@ def home():
     return render_template('home.html', data=all_movies)
 
 
+@app.route('/view')
+def view():
+    movie_id = request.args.get("id")
+    data = Movies.query.get(movie_id)
+    return render_template("view.html", movie=data)
+
+
 @app.route("/add", methods=['POST', 'GET'])
 def add():
     form = AddForm()
