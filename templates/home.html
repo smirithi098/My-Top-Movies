@@ -1,0 +1,143 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}My Top 10 Movies{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="jumbotron-fluid text-center top-section">
+            <h1 class="display-3">My Top 10 Movies</h1>
+            <p class="lead font-weight-light">These are my all-time favorite movies.</p>
+            <hr class="my-4">
+            <p class="lead">
+                <a href="{{ url_for('add') }}" class="btn btn-danger btn-lg add-btn" role="button">
+                    Add Movie
+                </a>
+            </p>
+        </div>
+    </div>
+    {% if data|length == 0: %}
+    <div class="container">
+        <p class="display-6 text-center">No movies added yet...</p>
+    </div>
+    {% else: %}
+    <div class="container cards-section">
+        <div class="row">
+            <div class="col">
+                <div id="myCards" class="carousel slide" data-slide="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <img class="card-img-top poster" src="{{ data[0].img_url }}" alt="Card image">
+                                                <div class="flexbox">
+                                                    <h3 class="card-title">{{ data[0].title }} ({{ data[0].year }})</h3>
+                                                    <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#movieModal">
+                                                        View
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModalLabel" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="movieModalLabel">
+                                            {{ data[0].title }}
+                                            <span>({{ data[0].year }})</span>
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="display-5 rating">
+                                            <i class="fas fa-star star"></i> {{ data[0].rating }}
+                                        </p>
+                                        <p class="display-5 review">{{ data[0].review }}</p>
+                                        <p class="display-5 description">{{ data[0].description }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-dark btn-lg" href="{{ url_for('update', id=data[0].id) }}">Update</a>
+                                        <a class="btn btn-danger btn-lg" href="{{ url_for('delete', id=data[0].id) }}">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% for movie in data[1:]: %}
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <img class="card-img-top poster" src="{{ movie.img_url }}" alt="Card image">
+                                                <div class="flexbox">
+                                                    <h3 class="card-title">{{ movie.title }} ({{ movie.year }})</h3>
+                                                    <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#moviesModal">
+                                                        View
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="moviesModal" tabindex="-1" aria-labelledby="moviesModalLabel" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="moviesModalLabel">
+                                            {{ movie.title }}
+                                            <span>({{ movie.year }})</span>
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="display-5 rating">
+                                            <i class="fas fa-star star"></i> {{ movie.rating }}
+                                        </p>
+                                        <p class="display-5 review">{{ movie.review }}</p>
+                                        <p class="display-5 description">{{ movie.description }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-dark btn-lg" href="{{ url_for('update', id=movie.id) }}">Update</a>
+                                        <a class="btn btn-danger btn-lg" href="{{ url_for('delete', id=movie.id) }}">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#myCards" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#myCards" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+{% endblock %}

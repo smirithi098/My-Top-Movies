@@ -1,0 +1,108 @@
+body {
+    background-color: #CCD1E4;
+}
+
+. container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.top-section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.add-btn {
+    margin-top: 40px;
+}
+
+.cards-section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card {
+    width: 450px;
+    height: 350px;
+    margin: auto;
+}
+
+.card-body {
+    padding: 0px;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.poster {
+    width: 400px;
+    height: 350px;
+}
+
+.movie-title {
+    align-self: center;
+}
+
+.flexbox {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.heading {
+    margin: 60px 50px;
+}
+
+.line-break {
+    border: solid #2F3A8F;
+    width: 350px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.form-section {
+    padding-top: 30px;
+}
+
+form {
+    text-align: center;
+}
+
+.control-label {
+    margin: auto;
+    padding-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+#movie_field {
+    width: 300px;
+    margin: auto;
+}
+
+#submit, #done_btn {
+    color: white;
+    background-color: #007bff;
+    font-size: 1.25rem;
+}
+
+#rating_field, #review_field {
+    width: 300px;
+    margin: auto;
+}
+
+.list {
+    margin-left: 50px;
+}
+
+.rating {
+    color: #E4BB23;
+}
+
+.review {
+    font-style: italic;
+}
+
+.modal-footer {
+    justify-content: center;
+}
